@@ -29,8 +29,8 @@
   };
 </script>
 <style>
-  html { scroll-behavior: smooth; }
-  body { background-color: #F2EBD9; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body { background-color: #F2EBD9; overflow-x: hidden; overflow-wrap: break-word; word-break: break-word; }
 
   .grain { position: relative; }
   .grain::before {
@@ -199,11 +199,11 @@
         <img src="brand_assets/IMG_5736.jpg" alt="Restaurant Alexandrion bei Nacht" class="hero-photo-img absolute inset-0 w-full h-full object-cover" style="object-position: center 40%;">
         <div class="absolute inset-0 z-10 flex items-center justify-center px-6">
           <div class="max-w-3xl float-slow">
-            <h1 class="hero-in hero-text-shadow font-display italic text-5xl sm:text-6xl text-parchment tracking-[0.25em] lowercase" style="animation-delay:0.05s">alexandrion</h1>
-            <p class="hero-in hero-text-shadow font-display italic text-2xl sm:text-3xl text-parchment/95 mt-4 leading-snug" style="animation-delay:0.2s">
-              Griechische Wurzeln,<br class="hidden sm:block"> mediterranes Herz
+            <h1 class="hero-in hero-text-shadow font-display italic text-4xl sm:text-5xl lg:text-6xl text-parchment tracking-[0.08em] sm:tracking-[0.25em] lowercase" style="animation-delay:0.05s">alexandrion</h1>
+            <p class="hero-in hero-text-shadow font-display italic text-xl sm:text-2xl lg:text-3xl text-parchment/95 mt-4 leading-snug" style="animation-delay:0.2s">
+              Griechische Wurzeln,<br> mediterranes Herz
             </p>
-            <p class="hero-in hero-text-shadow font-sans text-sm tracking-wide text-parchment/90 mt-5" style="animation-delay:0.35s">Wenn griechische Gastfreundschaft auf ehrliche, saisonale Küche trifft</p>
+            <p class="hero-in hero-text-shadow font-sans text-sm tracking-wide text-parchment/90 mt-5 px-2" style="animation-delay:0.35s">Wenn griechische Gastfreundschaft auf ehrliche, saisonale Küche trifft</p>
             <a href="kontakt.html" class="hero-in pill-solid font-sans text-xs tracking-[0.2em] uppercase px-8 py-4 rounded-full inline-flex items-center gap-2 mt-8 shadow-warm" style="animation-delay:0.5s">
               Jetzt reservieren
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -217,7 +217,7 @@
     <!-- ============ ÜBER ALEXANDRION ============ -->
     <section id="ueber" class="relative py-24 lg:py-28 bg-parchment-grad grain">
       <div class="max-w-3xl mx-auto px-6 text-center">
-        <h2 class="reveal font-display italic text-3xl sm:text-4xl text-olive-dark tracking-[0.2em] lowercase mb-8">über alexandrion</h2>
+        <h2 class="reveal font-display italic text-3xl sm:text-4xl text-olive-dark tracking-[0.06em] sm:tracking-[0.2em] lowercase mb-8">über alexandrion</h2>
         <p class="reveal reveal-delay-1 font-serif text-lg leading-[1.7] text-ink/80 mb-5">
           1998 eröffnete Aristidis Tassis die Taverna Alexandrion mit einem einfachen Versprechen: ehrliches
           Essen, wie es seine Mutter in Thessaloniki gekocht hat. Bis heute steht die Familie selbst am Herd
@@ -317,15 +317,15 @@
     <!-- ============ GALERIE ============ -->
     <section id="galerie" class="relative py-24 lg:py-28 bg-parchment-grad grain">
       <div class="max-w-6xl mx-auto px-6">
-        <h2 class="reveal font-display italic text-3xl sm:text-4xl text-olive-dark text-center tracking-[0.15em] lowercase mb-8">alexandrion galerie</h2>
-        <div class="reveal reveal-delay-1 flex justify-center gap-3 mb-10 font-sans text-xs tracking-[0.1em] uppercase" id="galleryFilters">
-          <button data-filter="all" class="filter-pill active px-5 py-2 rounded-full">Alle</button>
-          <button data-filter="innenraum" class="filter-pill px-5 py-2 rounded-full">Räumlichkeiten</button>
-          <button data-filter="speisen" class="filter-pill px-5 py-2 rounded-full">Speisen</button>
+        <h2 class="reveal font-display italic text-3xl sm:text-4xl text-olive-dark text-center tracking-[0.04em] sm:tracking-[0.15em] lowercase mb-8">alexandrion galerie</h2>
+        <div class="reveal reveal-delay-1 flex flex-wrap justify-center gap-2 mb-10 font-sans text-xs tracking-[0.08em] uppercase" id="galleryFilters">
+          <button data-filter="all" class="filter-pill active px-4 py-2 rounded-full">Alle</button>
+          <button data-filter="innenraum" class="filter-pill px-4 py-2 rounded-full">Räumlichkeiten</button>
+          <button data-filter="speisen" class="filter-pill px-4 py-2 rounded-full">Speisen</button>
         </div>
 
         <!-- 3-Bild-Karussell -->
-        <div class="reveal reveal-delay-2 relative px-12 sm:px-14">
+        <div class="reveal reveal-delay-2 relative px-10 sm:px-12 lg:px-14">
           <button id="gallery-prev" aria-label="Vorheriges Bild"
             class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-parchment shadow-warm text-olive"
             style="transition: color 0.2s ease, opacity 0.2s ease;">
@@ -351,27 +351,27 @@
     <section class="relative py-20 lg:py-24 bg-parchment-grad grain">
       <div class="max-w-6xl mx-auto px-6">
         <div class="text-center mb-14">
-          <h2 class="reveal font-display italic text-3xl sm:text-4xl text-olive-dark tracking-[0.15em] lowercase mb-4">was unsere Gäste sagen</h2>
+          <h2 class="reveal font-display italic text-3xl sm:text-4xl text-olive-dark tracking-[0.04em] sm:tracking-[0.15em] lowercase mb-4">was unsere Gäste sagen</h2>
           <p class="reveal reveal-delay-1 font-serif text-lg leading-[1.7] text-ink/75 max-w-xl mx-auto">
             Echte Stimmen von echten Gästen &mdash; wir sind dankbar für jeden Besuch.
           </p>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          <div class="reveal bg-white/45 border border-olive/10 shadow-warm rounded-sm p-7 flex flex-col gap-4">
+          <div class="reveal bg-white/45 border border-olive/10 shadow-warm rounded-sm p-5 sm:p-7 flex flex-col gap-4 min-w-0 overflow-hidden">
             <div class="flex gap-0.5 text-xl" style="color:#B8861A;">★★★★★</div>
             <p class="font-serif leading-[1.75] text-ink/80 text-[1rem] flex-1">
               „Ich war im Alexandrion und total begeistert! Als Vegetarierin habe ich mich besonders gefreut, dass es eine richtig tolle Auswahl für mich gab. Ein absolutes Highlight waren die Paprika Florini von der Tageskarte &mdash; ich habe wirklich noch nie etwas so Leckeres gegessen."
             </p>
             <p class="font-sans text-sm text-olive-dark font-medium">— Lorena Ross Lopéz</p>
           </div>
-          <div class="reveal reveal-delay-1 bg-white/45 border border-olive/10 shadow-warm rounded-sm p-7 flex flex-col gap-4">
+          <div class="reveal reveal-delay-1 bg-white/45 border border-olive/10 shadow-warm rounded-sm p-5 sm:p-7 flex flex-col gap-4 min-w-0 overflow-hidden">
             <div class="flex gap-0.5 text-xl" style="color:#B8861A;">★★★★★</div>
             <p class="font-serif leading-[1.75] text-ink/80 text-[1rem] flex-1">
               „Immer wieder ein Genuss! Man spürt sofort die Herzlichkeit der Familie Tassis und wie viel Leidenschaft und Liebe sie in ihr Restaurant stecken. Die Atmosphäre ist warm und einladend, und man fühlt sich vom ersten Moment an willkommen. Ich kann das Restaurant mit bestem Gewissen weiterempfehlen!"
             </p>
             <p class="font-sans text-sm text-olive-dark font-medium">— Pavlos Maios</p>
           </div>
-          <div class="reveal reveal-delay-2 sm:col-span-2 lg:col-span-1 bg-white/45 border border-olive/10 shadow-warm rounded-sm p-7 flex flex-col gap-4">
+          <div class="reveal reveal-delay-2 sm:col-span-2 lg:col-span-1 bg-white/45 border border-olive/10 shadow-warm rounded-sm p-5 sm:p-7 flex flex-col gap-4 min-w-0 overflow-hidden">
             <div class="flex gap-0.5 text-xl" style="color:#B8861A;">★★★★★</div>
             <p class="font-serif leading-[1.75] text-ink/80 text-[1rem] flex-1">
               „Wir waren heute das erste Mal hier und hatten neben einer gemischten Vorspeisenplatte noch Sardellen und Moussaka gegessen. Insbesondere die Vorspeisen waren sehr lecker und optisch schön präsentiert! Super freundlicher Service, gemütliche Atmosphäre und richtig gutes Essen. Ich komme definitiv wieder!"
@@ -380,9 +380,9 @@
           </div>
         </div>
         <div class="reveal text-center">
-          <a href="https://maps.app.goo.gl/Nc6xRajPZFLciWia6?g_st=ic" target="_blank" rel="noopener" class="pill-outline on-parchment font-sans text-xs tracking-[0.2em] uppercase px-7 py-3.5 rounded-full inline-flex items-center gap-2">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/><circle cx="12" cy="9" r="2.5"/></svg>
-            Alle Bewertungen auf Google ansehen
+          <a href="https://maps.app.goo.gl/Nc6xRajPZFLciWia6?g_st=ic" target="_blank" rel="noopener" class="pill-outline on-parchment font-sans text-xs tracking-[0.12em] sm:tracking-[0.2em] uppercase px-5 sm:px-7 py-3.5 rounded-full inline-flex items-center gap-2">
+            <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <span class="sm:hidden">Google-Bewertungen</span><span class="hidden sm:inline">Alle Bewertungen auf Google ansehen</span>
           </a>
         </div>
       </div>
@@ -391,17 +391,17 @@
     <!-- ============ FOLGT ALEXANDRION ============ -->
     <section class="relative py-16 lg:py-20 bg-parchment-grad grain">
       <div class="max-w-3xl mx-auto px-6 text-center">
-        <h2 class="reveal font-display italic text-2xl sm:text-3xl text-olive-dark tracking-[0.1em] lowercase mb-4">Folgt Alexandrion</h2>
+        <h2 class="reveal font-display italic text-2xl sm:text-3xl text-olive-dark tracking-[0.04em] sm:tracking-[0.1em] lowercase mb-4">Folgt Alexandrion</h2>
         <p class="reveal reveal-delay-1 font-serif leading-[1.7] text-ink/75 mb-8 max-w-xl mx-auto">
           Exklusive Einblicke hinter die Kulissen, Gerichte zum Niederknien und Neuigkeiten aus erster
           Hand. Folgt uns auf Instagram und Facebook und schmeckt die griechisch-mainländische Verbindung.
         </p>
         <div class="reveal reveal-delay-2 flex flex-wrap justify-center gap-4">
-          <a href="https://www.instagram.com/restaurantalexandrion?igsh=Y3FqandvaXl5ZjA5" target="_blank" rel="noopener" class="pill-solid font-sans text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-full inline-flex items-center gap-2 shadow-warm">
+          <a href="https://www.instagram.com/restaurantalexandrion?igsh=Y3FqandvaXl5ZjA5" target="_blank" rel="noopener" class="pill-solid font-sans text-xs tracking-[0.1em] sm:tracking-[0.2em] uppercase px-5 sm:px-6 py-3 rounded-full inline-flex items-center gap-2 shadow-warm">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
             Instagram
           </a>
-          <a href="https://www.facebook.com/share/1DJb4d4WGr/?mibextid=wwXIfr" target="_blank" rel="noopener" class="pill-solid font-sans text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-full inline-flex items-center gap-2 shadow-warm">
+          <a href="https://www.facebook.com/share/1DJb4d4WGr/?mibextid=wwXIfr" target="_blank" rel="noopener" class="pill-solid font-sans text-xs tracking-[0.1em] sm:tracking-[0.2em] uppercase px-5 sm:px-6 py-3 rounded-full inline-flex items-center gap-2 shadow-warm">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 8h2V5h-2c-2.2 0-4 1.8-4 4v2H9v3h2v7h3v-7h2.5l.5-3H14V9c0-.6.4-1 1-1Z"/></svg>
             Facebook
           </a>
@@ -412,42 +412,42 @@
     <!-- ============ AMENITIES ============ -->
     <section class="relative bg-parchment-grad grain">
       <div class="max-w-6xl mx-auto px-6 py-16 lg:py-20 grid sm:grid-cols-2 gap-x-12 gap-y-12">
-        <div class="reveal flex gap-5">
+        <div class="reveal flex gap-5 min-w-0">
           <svg class="w-9 h-9 text-olive shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 8 8h8L12 2Z"/><path d="M5 9 1 16h8L5 9Z"/><path d="M19 9l-4 7h8l-4-7Z"/><path d="M12 11v11"/></svg>
-          <div>
+          <div class="min-w-0">
             <h3 class="font-display italic text-xl text-olive-dark mb-1.5">Garten / Außenbereich</h3>
             <p class="font-serif text-sm leading-relaxed text-ink/70">Genießt unseren lauschigen Innenhof &mdash; ob romantisches Dinner oder große Feier, hier wird jeder Anlass besonders.</p>
           </div>
         </div>
-        <div class="reveal reveal-delay-1 flex gap-5">
+        <div class="reveal reveal-delay-1 flex gap-5 min-w-0">
           <svg class="w-9 h-9 text-olive shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M9 16V8h3.5a2.5 2.5 0 1 1 0 5H9"/></svg>
           <div>
             <h3 class="font-display italic text-xl text-olive-dark mb-1.5">Parkplatz</h3>
             <p class="font-serif text-sm leading-relaxed text-ink/70">Keine Sorgen, kein Stress &mdash; bei uns gibt's ausreichend Parkplätze direkt vor der Tür.</p>
           </div>
         </div>
-        <div class="reveal reveal-delay-2 flex gap-5">
+        <div class="reveal reveal-delay-2 flex gap-5 min-w-0">
           <svg class="w-9 h-9 text-olive shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M14.5 14.5c2.6 0.4 4.5 2.4 4.5 5.5"/></svg>
           <div>
             <h3 class="font-display italic text-xl text-olive-dark mb-1.5">Events &amp; private Feiern</h3>
             <p class="font-serif text-sm leading-relaxed text-ink/70">Klein oder groß, wir machen jede Feier unvergesslich &mdash; mit Menüs und Service nach euren Wünschen.</p>
           </div>
         </div>
-        <div class="reveal reveal-delay-3 flex gap-5">
+        <div class="reveal reveal-delay-3 flex gap-5 min-w-0">
           <svg class="w-9 h-9 text-olive shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3c4 2 6 5 6 9a6 6 0 1 1-12 0c0-4 2-7 6-9Z"/><path d="M12 12v9"/></svg>
           <div>
             <h3 class="font-display italic text-xl text-olive-dark mb-1.5">Vegane Optionen</h3>
             <p class="font-serif text-sm leading-relaxed text-ink/70">Wer sagt, griechische Küche kann nicht pflanzlich sein? Unsere veganen Gerichte beweisen das Gegenteil.</p>
           </div>
         </div>
-        <div class="reveal reveal-delay-4 flex gap-5">
+        <div class="reveal reveal-delay-4 flex gap-5 min-w-0">
           <svg class="w-9 h-9 text-olive shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 4l16 16M9 4 7 9m4-5-1 6m4-6-1 8m4-8 2 12-7 4-7-4 1-7"/></svg>
           <div>
             <h3 class="font-display italic text-xl text-olive-dark mb-1.5">Glutenfrei auf Anfrage</h3>
             <p class="font-serif text-sm leading-relaxed text-ink/70">Unverträglichkeit? Einfach Bescheid geben &mdash; wir servieren glutenfreie Gerichte mit vollem Geschmack.</p>
           </div>
         </div>
-        <div class="reveal reveal-delay-5 flex gap-5">
+        <div class="reveal reveal-delay-5 flex gap-5 min-w-0">
           <svg class="w-9 h-9 text-olive shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 9c5.5-5 14.5-5 20 0M5.5 13c4-3.5 9-3.5 13 0M9 17c2-1.7 4-1.7 6 0"/><circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/></svg>
           <div>
             <h3 class="font-display italic text-xl text-olive-dark mb-1.5">Kostenloses WLAN</h3>
@@ -462,7 +462,7 @@
   <footer id="kontakt" class="bg-olive-grad grain rounded-t-[60px] sm:rounded-t-[100px]">
     <div class="max-w-6xl mx-auto px-6 lg:px-10 pt-16 sm:pt-20 pb-12">
       <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-10 mb-14">
-        <img src="brand_assets/upscalemedia-transformed-removebg-preview.png" alt="Alexandrion Logo" class="h-28 w-auto" style="filter: brightness(0) invert(1);">
+        <img src="brand_assets/upscalemedia-transformed-removebg-preview.png" alt="Alexandrion Logo" class="h-20 sm:h-28 w-auto max-w-[160px] sm:max-w-none" style="filter: brightness(0) invert(1);">
         <div class="sm:text-right">
           <p class="font-display italic text-3xl text-parchment tracking-[0.15em] lowercase">alexandrion</p>
           <p class="font-serif text-parchment/70 mt-1">Griechische Wurzeln, mediterranes Herz.</p>
@@ -541,7 +541,7 @@
       { src: 'brand_assets/IMG_5738.jpg', alt: 'Dolmades mit Tzatziki', cat: 'speisen' },
       { src: 'brand_assets/IMG_5740.jpg', alt: 'Dessert Amygdalopita', cat: 'speisen' },
     ];
-    const GAL_VISIBLE = 3;
+    function galVisible() { return window.innerWidth < 640 ? 2 : 3; }
     const GAL_GAP = 12;
     let galFilter = 'all';
     let galIdx = 0;
@@ -553,7 +553,8 @@
     const galNext = document.getElementById('gallery-next');
 
     function galItemW() {
-      return (galViewport.offsetWidth - GAL_GAP * (GAL_VISIBLE - 1)) / GAL_VISIBLE;
+      const v = galVisible();
+      return (galViewport.offsetWidth - GAL_GAP * (v - 1)) / v;
     }
 
     function buildGallery() {
@@ -580,7 +581,7 @@
     }
 
     function galNavUpdate() {
-      const max = Math.max(0, galFiltered.length - GAL_VISIBLE);
+      const max = Math.max(0, galFiltered.length - galVisible());
       galPrev.style.opacity = galIdx <= 0 ? '0.3' : '1';
       galNext.style.opacity = galIdx >= max ? '0.3' : '1';
       galPrev.disabled = galIdx <= 0;
@@ -588,7 +589,7 @@
     }
 
     function galMove(d) {
-      const max = Math.max(0, galFiltered.length - GAL_VISIBLE);
+      const max = Math.max(0, galFiltered.length - galVisible());
       galIdx = Math.max(0, Math.min(galIdx + d, max));
       galPosition();
       galNavUpdate();
@@ -619,6 +620,7 @@
     let lbIdx = 0;
 
     function lbShow(idx) {
+      if (!galFiltered.length) return;
       lbIdx = ((idx % galFiltered.length) + galFiltered.length) % galFiltered.length;
       lbImg.src = galFiltered[lbIdx].src;
       lbImg.alt = galFiltered[lbIdx].alt;
