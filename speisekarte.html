@@ -119,9 +119,14 @@
         <a href="index.html#galerie" class="nav-link">Galerie</a>
         <a href="kontakt.html" class="nav-link">Kontakt</a>
       </nav>
-      <a href="kontakt.html" class="hidden sm:inline-flex pill-solid font-sans text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-full shadow-warm">
-        Reservieren
-      </a>
+      <div class="flex items-center gap-3">
+        <a href="kontakt.html" class="hidden lg:inline-flex pill-solid font-sans text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-full shadow-warm">
+          Reservieren
+        </a>
+        <button id="menuToggle" class="lg:hidden flex items-center justify-center w-10 h-10 rounded-full border border-olive/25 text-ink/70 hover:text-olive-dark hover:border-olive/50" style="transition: color 0.2s ease, border-color 0.2s ease;" aria-label="Menü öffnen">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -171,16 +176,20 @@
     <section class="relative pb-24 lg:pb-28 bg-parchment-grad grain">
       <div class="max-w-4xl mx-auto px-6 space-y-14">
         <figure class="reveal">
-          <div class="card-lift shadow-warm-lg overflow-hidden rounded-sm border border-olive/10 bg-white">
+          <div class="card-lift shadow-warm-lg overflow-hidden rounded-sm border border-olive/10 bg-white cursor-pointer" onclick="menuLbOpen(0)" title="Zum Vergrößern klicken">
             <img src="brand_assets/Speisekarte_2025.jpg" alt="Speisekarte Alexandrion, Seite 1" class="w-full h-auto">
           </div>
-          <figcaption class="font-sans text-xs tracking-[0.2em] uppercase text-ink/50 mt-4 text-center">Seite 1</figcaption>
+          <figcaption class="font-sans text-xs tracking-[0.2em] uppercase text-ink/50 mt-4 text-center">
+            Seite 1 &nbsp;·&nbsp; <span class="text-ink/40">Tippen zum Vergrößern</span>
+          </figcaption>
         </figure>
         <figure class="reveal reveal-delay-1">
-          <div class="card-lift shadow-warm-lg overflow-hidden rounded-sm border border-olive/10 bg-white">
+          <div class="card-lift shadow-warm-lg overflow-hidden rounded-sm border border-olive/10 bg-white cursor-pointer" onclick="menuLbOpen(1)" title="Zum Vergrößern klicken">
             <img src="brand_assets/Speisekarte_2025b.jpg" alt="Speisekarte Alexandrion, Seite 2" class="w-full h-auto">
           </div>
-          <figcaption class="font-sans text-xs tracking-[0.2em] uppercase text-ink/50 mt-4 text-center">Seite 2</figcaption>
+          <figcaption class="font-sans text-xs tracking-[0.2em] uppercase text-ink/50 mt-4 text-center">
+            Seite 2 &nbsp;·&nbsp; <span class="text-ink/40">Tippen zum Vergrößern</span>
+          </figcaption>
         </figure>
       </div>
     </section>
@@ -190,7 +199,7 @@
   <footer id="kontakt" class="bg-olive-grad grain rounded-t-[60px] sm:rounded-t-[100px]">
     <div class="max-w-6xl mx-auto px-6 lg:px-10 pt-16 sm:pt-20 pb-12">
       <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-10 mb-14">
-        <img src="brand_assets/upscalemedia-transformed-removebg-preview.png" alt="Alexandrion Logo" class="h-28 w-auto" style="filter: brightness(0) invert(1);">
+        <img src="brand_assets/upscalemedia-transformed-removebg-preview.png" alt="Alexandrion Logo" class="h-auto max-h-28 w-auto" style="filter: brightness(0) invert(1);">
         <div class="sm:text-right">
           <p class="font-display italic text-3xl text-parchment tracking-[0.15em] lowercase">alexandrion</p>
           <p class="font-serif text-parchment/70 mt-1">Griechische Wurzeln, mediterranes Herz.</p>
@@ -231,7 +240,43 @@
     </div>
   </footer>
 
+  <!-- ============ MOBILE MENU ============ -->
+  <div id="mobileMenu" class="fixed inset-0 z-[150] bg-parchment flex flex-col" style="display:none;">
+    <div class="flex items-center justify-between px-6 h-20 border-b border-olive/10 shrink-0">
+      <img src="brand_assets/upscalemedia-transformed-removebg-preview.png" alt="Alexandrion Logo" class="h-14 w-auto" style="filter: brightness(0) opacity(0.78);">
+      <button id="menuClose" class="w-10 h-10 flex items-center justify-center text-ink/60 hover:text-ink rounded-full" style="transition: color 0.2s ease;" aria-label="Menü schließen">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav class="flex flex-col items-center justify-center flex-1 gap-9">
+      <a href="index.html#ueber" class="font-display italic text-4xl text-olive-dark tracking-wide hover:text-gold" style="transition: color 0.2s ease;">Über uns</a>
+      <a href="index.html#galerie" class="font-display italic text-4xl text-olive-dark tracking-wide hover:text-gold" style="transition: color 0.2s ease;">Galerie</a>
+      <a href="kontakt.html" class="font-display italic text-4xl text-olive-dark tracking-wide hover:text-gold" style="transition: color 0.2s ease;">Kontakt</a>
+      <a href="kontakt.html" class="mt-2 pill-solid font-sans text-xs tracking-[0.2em] uppercase px-8 py-4 rounded-full inline-flex items-center gap-2 shadow-warm">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 6h13M8 12h13M8 18h5"/><circle cx="3" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="3" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="3" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
+        Jetzt reservieren
+      </a>
+    </nav>
+    <p class="text-center font-sans text-xs text-ink/40 pb-8 tracking-widest uppercase">Lämmerspieler Weg 16 · Mühlheim am Main</p>
+  </div>
+
+  <!-- ============ SPEISEKARTE LIGHTBOX ============ -->
+  <div id="menuLightbox" class="fixed inset-0 z-[200] flex items-center justify-center p-4" style="display:none; background: rgba(8,11,8,0.96); backdrop-filter: blur(6px);">
+    <button id="mlb-close" class="absolute top-5 right-5 text-parchment/70 hover:text-parchment" style="transition: color 0.2s ease;" aria-label="Schließen">
+      <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <button id="mlb-prev" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 text-parchment/70 hover:text-parchment" style="transition: color 0.2s ease;" aria-label="Zurück">
+      <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <img id="mlb-img" src="" alt="" class="max-h-[88vh] max-w-[82vw] object-contain" style="box-shadow: 0 8px 48px rgba(0,0,0,0.6);">
+    <button id="mlb-next" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 text-parchment/70 hover:text-parchment" style="transition: color 0.2s ease;" aria-label="Weiter">
+      <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <p id="mlb-counter" class="absolute bottom-5 left-1/2 -translate-x-1/2 font-sans text-xs text-parchment/40 tracking-[0.25em]"></p>
+  </div>
+
   <script>
+    // === SCROLL REVEAL ===
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -241,6 +286,61 @@
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // === MOBILE MENU ===
+    const mobileMenu = document.getElementById('mobileMenu');
+    document.getElementById('menuToggle').addEventListener('click', () => {
+      mobileMenu.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    });
+    document.getElementById('menuClose').addEventListener('click', () => {
+      mobileMenu.style.display = 'none';
+      document.body.style.overflow = '';
+    });
+    document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.style.display = 'none';
+      document.body.style.overflow = '';
+    }));
+
+    // === SPEISEKARTE LIGHTBOX ===
+    const MENU_IMAGES = [
+      { src: 'brand_assets/Speisekarte_2025.jpg', alt: 'Speisekarte Alexandrion, Seite 1' },
+      { src: 'brand_assets/Speisekarte_2025b.jpg', alt: 'Speisekarte Alexandrion, Seite 2' },
+    ];
+    let mlbIdx = 0;
+    const mlb = document.getElementById('menuLightbox');
+    const mlbImg = document.getElementById('mlb-img');
+    const mlbCounter = document.getElementById('mlb-counter');
+
+    function menuLbShow(idx) {
+      mlbIdx = ((idx % MENU_IMAGES.length) + MENU_IMAGES.length) % MENU_IMAGES.length;
+      mlbImg.src = MENU_IMAGES[mlbIdx].src;
+      mlbImg.alt = MENU_IMAGES[mlbIdx].alt;
+      mlbCounter.textContent = (mlbIdx + 1) + ' / ' + MENU_IMAGES.length;
+    }
+
+    function menuLbOpen(idx) {
+      menuLbShow(idx);
+      mlb.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function menuLbClose() {
+      mlb.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('mlb-close').addEventListener('click', menuLbClose);
+    document.getElementById('mlb-prev').addEventListener('click', () => menuLbShow(mlbIdx - 1));
+    document.getElementById('mlb-next').addEventListener('click', () => menuLbShow(mlbIdx + 1));
+    mlb.addEventListener('click', e => { if (e.target === mlb) menuLbClose(); });
+    document.addEventListener('keydown', e => {
+      if (mlb.style.display !== 'none') {
+        if (e.key === 'Escape') menuLbClose();
+        if (e.key === 'ArrowLeft') menuLbShow(mlbIdx - 1);
+        if (e.key === 'ArrowRight') menuLbShow(mlbIdx + 1);
+      }
+    });
   </script>
 
 </body>

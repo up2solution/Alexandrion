@@ -186,9 +186,14 @@
         <a href="#galerie" class="nav-link">Galerie</a>
         <a href="kontakt.html" class="nav-link">Kontakt</a>
       </nav>
-      <a href="speisekarte.html" class="hidden sm:inline-flex pill-solid font-sans text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-full shadow-warm">
-        Speisekarte
-      </a>
+      <div class="flex items-center gap-3">
+        <a href="speisekarte.html" class="hidden lg:inline-flex pill-solid font-sans text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-full shadow-warm">
+          Speisekarte
+        </a>
+        <button id="menuToggle" class="lg:hidden flex items-center justify-center w-10 h-10 rounded-full border border-olive/25 text-ink/70 hover:text-olive-dark hover:border-olive/50" style="transition: color 0.2s ease, border-color 0.2s ease;" aria-label="Menü öffnen">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -230,10 +235,10 @@
         </p>
       </div>
 
-      <div class="max-w-6xl mx-auto px-6 mt-20 space-y-20">
-        <!-- Die Küche -->
-        <div class="reveal grid sm:grid-cols-[160px_1fr] gap-8 items-start">
-          <div class="rounded-2xl overflow-hidden w-28 h-28 sm:w-32 sm:h-32 shadow-warm card-lift">
+      <div class="max-w-6xl mx-auto px-6 mt-20 space-y-16 sm:space-y-20">
+        <!-- Die Küche — image top on mobile, image left on desktop -->
+        <div class="reveal flex flex-col sm:grid sm:grid-cols-[160px_1fr] gap-5 sm:gap-8 items-start">
+          <div class="w-full aspect-video sm:aspect-auto sm:h-40 rounded-2xl overflow-hidden shadow-warm card-lift">
             <img src="brand_assets/IMG_5726.jpg" alt="Gericht der Taverna Alexandrion" class="w-full h-full object-cover" style="object-position: center center;">
           </div>
           <div>
@@ -245,9 +250,12 @@
             </p>
           </div>
         </div>
-        <!-- Der Chef -->
-        <div class="reveal grid sm:grid-cols-[1fr_160px] gap-8 items-start sm:ml-12">
-          <div class="sm:order-1 sm:text-right">
+        <!-- Das Team — image top on mobile, image right on desktop, text right-aligned -->
+        <div class="reveal flex flex-col sm:grid sm:grid-cols-[1fr_160px] gap-5 sm:gap-8 items-start sm:ml-12">
+          <div class="w-full aspect-video sm:aspect-auto sm:h-40 rounded-2xl overflow-hidden shadow-warm sm:ml-auto card-lift sm:order-2">
+            <img src="brand_assets/IMG_5721.jpg" alt="Das Team der Taverna Alexandrion" class="w-full h-full object-cover" style="object-position: center 20%;">
+          </div>
+          <div class="text-right sm:order-1">
             <h3 class="font-display italic text-2xl sm:text-3xl text-olive-dark mb-3">Das Team</h3>
             <p class="font-serif leading-[1.7] text-ink/75 max-w-xl sm:ml-auto">
               Familienküche auf hohem Niveau &mdash; seit 1998 am Herd: Aristidis Tassis. Ehrliche Aromen,
@@ -255,13 +263,10 @@
               griechischen Tavernen am Main zählt.
             </p>
           </div>
-          <div class="sm:order-2 rounded-2xl overflow-hidden w-28 h-28 sm:w-32 sm:h-32 shadow-warm sm:ml-auto card-lift">
-            <img src="brand_assets/IMG_5721.jpg" alt="Das Team der Taverna Alexandrion" class="w-full h-full object-cover" style="object-position: center 20%;">
-          </div>
         </div>
-        <!-- Die Atmosphäre -->
-        <div class="reveal grid sm:grid-cols-[160px_1fr] gap-8 items-start">
-          <div class="rounded-2xl overflow-hidden w-28 h-28 sm:w-32 sm:h-32 shadow-warm card-lift">
+        <!-- Die Atmosphäre — image top on mobile, image left on desktop -->
+        <div class="reveal flex flex-col sm:grid sm:grid-cols-[160px_1fr] gap-5 sm:gap-8 items-start">
+          <div class="w-full aspect-video sm:aspect-auto sm:h-40 rounded-2xl overflow-hidden shadow-warm card-lift">
             <img src="brand_assets/IMG_5735.jpg" alt="Gastraum der Taverna Alexandrion" class="w-full h-full object-cover" style="object-position: center center;">
           </div>
           <div>
@@ -274,18 +279,18 @@
             </p>
           </div>
         </div>
-        <!-- Das Erlebnis -->
-        <div class="reveal grid sm:grid-cols-[1fr_160px] gap-8 items-start sm:ml-12">
-          <div class="sm:order-1 sm:text-right">
+        <!-- Das Erlebnis — image top on mobile, image right on desktop, text right-aligned -->
+        <div class="reveal flex flex-col sm:grid sm:grid-cols-[1fr_160px] gap-5 sm:gap-8 items-start sm:ml-12">
+          <div class="w-full aspect-video sm:aspect-auto sm:h-40 rounded-2xl overflow-hidden shadow-warm sm:ml-auto card-lift sm:order-2">
+            <img src="brand_assets/IMG_5740.jpg" alt="Dessert in der Taverna Alexandrion" class="w-full h-full object-cover" style="object-position: center center;">
+          </div>
+          <div class="text-right sm:order-1">
             <h3 class="font-display italic text-2xl sm:text-3xl text-olive-dark mb-3">Das Erlebnis</h3>
             <p class="font-serif leading-[1.7] text-ink/75 max-w-xl sm:ml-auto">
               Bei Alexandrion ist Essen mehr als eine Mahlzeit &mdash; es ist ein Fest für die Sinne. Kleine
               Teller, große Aromen, ausgewählte Weine und herzliche Gastfreundschaft verschmelzen zu einem
               Abend, an dem Teilen zur schönsten Geste wird.
             </p>
-          </div>
-          <div class="sm:order-2 rounded-2xl overflow-hidden w-28 h-28 sm:w-32 sm:h-32 shadow-warm sm:ml-auto card-lift">
-            <img src="brand_assets/IMG_5740.jpg" alt="Dessert in der Taverna Alexandrion" class="w-full h-full object-cover" style="object-position: center center;">
           </div>
         </div>
       </div>
@@ -462,7 +467,7 @@
   <footer id="kontakt" class="bg-olive-grad grain rounded-t-[60px] sm:rounded-t-[100px]">
     <div class="max-w-6xl mx-auto px-6 lg:px-10 pt-16 sm:pt-20 pb-12">
       <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-10 mb-14">
-        <img src="brand_assets/upscalemedia-transformed-removebg-preview.png" alt="Alexandrion Logo" class="h-20 sm:h-28 w-auto max-w-[160px] sm:max-w-none" style="filter: brightness(0) invert(1);">
+        <img src="brand_assets/upscalemedia-transformed-removebg-preview.png" alt="Alexandrion Logo" class="h-auto max-h-20 sm:max-h-28 w-auto" style="filter: brightness(0) invert(1);">
         <div class="sm:text-right">
           <p class="font-display italic text-3xl text-parchment tracking-[0.15em] lowercase">alexandrion</p>
           <p class="font-serif text-parchment/70 mt-1">Griechische Wurzeln, mediterranes Herz.</p>
@@ -510,6 +515,27 @@
     </div>
   </footer>
 
+  <!-- ============ MOBILE MENU ============ -->
+  <div id="mobileMenu" class="fixed inset-0 z-[150] bg-parchment flex flex-col" style="display:none;">
+    <div class="flex items-center justify-between px-6 h-20 border-b border-olive/10 shrink-0">
+      <img src="brand_assets/upscalemedia-transformed-removebg-preview.png" alt="Alexandrion Logo" class="h-14 w-auto" style="filter: brightness(0) opacity(0.78);">
+      <button id="menuClose" class="w-10 h-10 flex items-center justify-center text-ink/60 hover:text-ink rounded-full" style="transition: color 0.2s ease;" aria-label="Menü schließen">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav class="flex flex-col items-center justify-center flex-1 gap-9">
+      <a href="#ueber" class="font-display italic text-4xl text-olive-dark tracking-wide hover:text-gold" style="transition: color 0.2s ease;">Über uns</a>
+      <a href="#speisekarte" class="font-display italic text-4xl text-olive-dark tracking-wide hover:text-gold" style="transition: color 0.2s ease;">Speisekarte</a>
+      <a href="#galerie" class="font-display italic text-4xl text-olive-dark tracking-wide hover:text-gold" style="transition: color 0.2s ease;">Galerie</a>
+      <a href="kontakt.html" class="font-display italic text-4xl text-olive-dark tracking-wide hover:text-gold" style="transition: color 0.2s ease;">Kontakt</a>
+      <a href="speisekarte.html" class="mt-2 pill-solid font-sans text-xs tracking-[0.2em] uppercase px-8 py-4 rounded-full inline-flex items-center gap-2 shadow-warm">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/></svg>
+        Speisekarte ansehen
+      </a>
+    </nav>
+    <p class="text-center font-sans text-xs text-ink/40 pb-8 tracking-widest uppercase">Lämmerspieler Weg 16 · Mühlheim am Main</p>
+  </div>
+
   <!-- ============ LIGHTBOX ============ -->
   <div id="lightbox" class="fixed inset-0 z-[200] flex items-center justify-center p-4 hidden" style="background: rgba(8,11,8,0.94); backdrop-filter: blur(6px);">
     <button id="lb-close" class="absolute top-5 right-5 text-parchment/70 hover:text-parchment" style="transition: color 0.2s ease;">
@@ -541,7 +567,7 @@
       { src: 'brand_assets/IMG_5738.jpg', alt: 'Dolmades mit Tzatziki', cat: 'speisen' },
       { src: 'brand_assets/IMG_5740.jpg', alt: 'Dessert Amygdalopita', cat: 'speisen' },
     ];
-    function galVisible() { return window.innerWidth < 640 ? 2 : 3; }
+    function galVisible() { return window.innerWidth < 640 ? 1 : 3; }
     const GAL_GAP = 12;
     let galFilter = 'all';
     let galIdx = 0;
@@ -649,6 +675,20 @@
         if (e.key === 'ArrowRight') lbShow(lbIdx + 1);
       }
     });
+
+    // === MOBILE MENU ===
+    const mobileMenu = document.getElementById('mobileMenu');
+    function openMobileMenu() {
+      mobileMenu.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      mobileMenu.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    document.getElementById('menuToggle').addEventListener('click', openMobileMenu);
+    document.getElementById('menuClose').addEventListener('click', closeMobileMenu);
+    document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', closeMobileMenu));
 
     // Initial build
     buildGallery();
