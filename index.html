@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alexandrion — Taverna · Mediterrane Hausmannskost</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          olive: { DEFAULT: '#3B5240', dark: '#2C3F31', light: '#4A6350' },
+          gold: { DEFAULT: '#B8861A', light: '#D4A53C', dark: '#8C6614' },
+          parchment: { DEFAULT: '#F2EBD9', dark: '#E8DCC0' },
+          terracotta: { DEFAULT: '#8B3A2A', dark: '#6E2E21' },
+          ink: '#2A2A1E',
+        },
+        fontFamily: {
+          display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+          serif: ['"EB Garamond"', 'Georgia', 'serif'],
+          sans: ['"Jost"', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background-color: #F2EBD9; }
+
+  .grain { position: relative; }
+  .grain::before {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  .diamond { width: 8px; height: 8px; background: #B8861A; transform: rotate(45deg); }
+
+  .shadow-warm { box-shadow: 0 1px 2px rgba(42,42,30,0.08), 0 8px 24px -8px rgba(59,82,64,0.25), 0 16px 40px -16px rgba(184,134,26,0.12); }
+  .shadow-warm-lg { box-shadow: 0 2px 4px rgba(42,42,30,0.10), 0 16px 40px -12px rgba(59,82,64,0.35), 0 24px 60px -20px rgba(184,134,26,0.18); }
+
+  .pill-solid {
+    background: #3B5240; color: #F2EBD9;
+    transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease, background-color 0.2s ease;
+  }
+  .pill-solid:hover { background: #4A6350; transform: translateY(-2px); }
+  .pill-solid:active { transform: translateY(0); }
+  .pill-solid:focus-visible { outline: 2px solid #D4A53C; outline-offset: 3px; }
+
+  .pill-gold {
+    background: #B8861A; color: #2A2A1E;
+    transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease, background-color 0.2s ease;
+  }
+  .pill-gold:hover { background: #D4A53C; transform: translateY(-2px); }
+  .pill-gold:active { transform: translateY(0); }
+  .pill-gold:focus-visible { outline: 2px solid #F2EBD9; outline-offset: 3px; }
+
+  .pill-outline {
+    background: transparent; border: 1px solid currentColor;
+    transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), background-color 0.2s ease, color 0.2s ease;
+  }
+  .pill-outline.on-olive { color: #F2EBD9; border-color: rgba(242,235,217,0.45); }
+  .pill-outline.on-olive:hover { background: rgba(242,235,217,0.12); transform: translateY(-2px); }
+  .pill-outline.on-parchment { color: #2C3F31; border-color: rgba(44,63,49,0.3); }
+  .pill-outline.on-parchment:hover { background: rgba(44,63,49,0.06); transform: translateY(-2px); }
+  .pill-outline:focus-visible { outline: 2px solid #B8861A; outline-offset: 3px; }
+
+  .filter-pill {
+    border: 1px solid rgba(44,63,49,0.25); color: #2C3F31;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .filter-pill:hover { transform: translateY(-1px); }
+  .filter-pill.active { background: #3B5240; color: #F2EBD9; border-color: #3B5240; }
+
+  .card-lift { transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease; }
+  .card-lift:hover { transform: translateY(-6px); }
+
+  .nav-link { position: relative; }
+  .nav-link::after {
+    content: ""; position: absolute; left: 0; bottom: -4px; width: 0%; height: 1px;
+    background: #B8861A; transition: width 0.25s ease;
+  }
+  .nav-link:hover::after, .nav-link:focus-visible::after { width: 100%; }
+  .nav-link:focus-visible { outline: none; }
+
+  .hero-shape { border-radius: 0 0 0 0; }
+  @media (min-width: 640px) { .hero-shape { border-radius: 0 160px 0 0; } }
+
+  .img-treat { position: relative; }
+  .img-treat::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(42,42,30,0.45), rgba(42,42,30,0.02) 50%);
+    mix-blend-mode: multiply;
+  }
+
+  .hero-photo-img {
+    filter: saturate(1.05) contrast(1.04) brightness(0.88);
+  }
+  .hero-photo::after {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background: rgba(8, 11, 8, 0.52);
+    pointer-events: none;
+  }
+
+  .hero-text-shadow {
+    text-shadow: 0 1px 4px rgba(0,0,0,0.95), 0 4px 16px rgba(0,0,0,0.85), 0 12px 40px rgba(0,0,0,0.65);
+  }
+
+  .gallery-img { transition: opacity 0.4s ease, transform 0.4s ease; cursor: pointer; }
+  .gallery-img:hover { opacity: 0.85; }
+
+  /* ---- gradient backgrounds (same palette, blended) ---- */
+  .bg-parchment-grad {
+    background:
+      radial-gradient(ellipse 70% 50% at 85% 0%, rgba(184,134,26,0.10), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 0% 100%, rgba(59,82,64,0.08), transparent 60%),
+      linear-gradient(180deg, #F8F2E3 0%, #F2EBD9 45%, #ECE2C7 100%);
+  }
+  .bg-olive-grad {
+    background:
+      radial-gradient(ellipse 65% 60% at 80% 0%, rgba(212,165,60,0.16), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 5% 100%, rgba(0,0,0,0.18), transparent 65%),
+      linear-gradient(165deg, #4A6350 0%, #3B5240 45%, #2C3F31 100%);
+  }
+  .bg-olive-dark-grad {
+    background: linear-gradient(180deg, #2C3F31 0%, #233226 100%);
+  }
+
+  /* ---- scroll reveal ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1.is-visible { transition-delay: 0.12s; }
+  .reveal-delay-2.is-visible { transition-delay: 0.24s; }
+  .reveal-delay-3.is-visible { transition-delay: 0.36s; }
+  .reveal-delay-4.is-visible { transition-delay: 0.48s; }
+  .reveal-delay-5.is-visible { transition-delay: 0.6s; }
+
+  /* ---- hero entrance ---- */
+  @keyframes heroIn {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-in { opacity: 0; animation: heroIn 0.9s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+  /* ---- gentle continuous float ---- */
+  @keyframes floatSlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .float-slow { animation: floatSlow 6s ease-in-out infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body class="font-serif text-ink antialiased">
+
+  <!-- ============ TOP BAR ============ -->
+  <div class="bg-olive-dark text-center py-2.5">
+    <p class="font-sans text-[11px] sm:text-xs tracking-[0.15em] text-parchment/90">Lämmerspieler Weg 16, 63165 Mühlheim am Main</p>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <header class="sticky top-0 z-50 bg-parchment/95 backdrop-blur-sm border-b border-olive/10">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-3 group">
+        <img src="brand_assets/upscalemedia-transformed-removebg-preview.png" alt="Alexandrion Logo" class="h-16 w-auto" style="filter: brightness(0) opacity(0.78);">
+      </a>
+      <nav class="hidden lg:flex items-center gap-10 font-sans text-sm tracking-wide text-ink/80">
+        <a href="#ueber" class="nav-link">Über uns</a>
+        <a href="#speisekarte" class="nav-link">Speisekarte</a>
+        <a href="#galerie" class="nav-link">Galerie</a>
+        <a href="kontakt.html" class="nav-link">Kontakt</a>
+      </nav>
+      <a href="speisekarte.html" class="hidden sm:inline-flex pill-solid font-sans text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-full shadow-warm">
+        Speisekarte
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="relative bg-parchment-grad grain text-center">
+      <div class="relative hero-photo overflow-hidden h-[88vh] min-h-[560px] max-h-[820px]">
+        <img src="brand_assets/IMG_5736.jpg" alt="Restaurant Alexandrion bei Nacht" class="hero-photo-img absolute inset-0 w-full h-full object-cover" style="object-position: center 40%;">
+        <div class="absolute inset-0 z-10 flex items-center justify-center px-6">
+          <div class="max-w-3xl float-slow">
+            <h1 class="hero-in hero-text-shadow font-display italic text-5xl sm:text-6xl text-parchment tracking-[0.25em] lowercase" style="animation-delay:0.05s">alexandrion</h1>
+            <p class="hero-in hero-text-shadow font-display italic text-2xl sm:text-3xl text-parchment/95 mt-4 leading-snug" style="animation-delay:0.2s">
+              Griechische Wurzeln,<br class="hidden sm:block"> mediterranes Herz
+            </p>
+            <p class="hero-in hero-text-shadow font-sans text-sm tracking-wide text-parchment/90 mt-5" style="animation-delay:0.35s">Wenn griechische Gastfreundschaft auf ehrliche, saisonale Küche trifft</p>
+            <a href="kontakt.html" class="hero-in pill-solid font-sans text-xs tracking-[0.2em] uppercase px-8 py-4 rounded-full inline-flex items-center gap-2 mt-8 shadow-warm" style="animation-delay:0.5s">
+              Jetzt reservieren
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 h-36 z-[5] pointer-events-none" style="background: linear-gradient(to bottom, transparent 0%, rgba(8,11,8,0.45) 100%);"></div>
+      </div>
+    </section>
+
+    <!-- ============ ÜBER ALEXANDRION ============ -->
+    <section id="ueber" class="relative py-24 lg:py-28 bg-parchment-grad grain">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        <h2 class="reveal font-display italic text-3xl sm:text-4xl text-olive-dark tracking-[0.2em] lowercase mb-8">über alexandrion</h2>
+        <p class="reveal reveal-delay-1 font-serif text-lg leading-[1.7] text-ink/80 mb-5">
+          1998 eröffnete Aristidis Tassis die Taverna Alexandrion mit einem einfachen Versprechen: ehrliches
+          Essen, wie es seine Mutter in Thessaloniki gekocht hat. Bis heute steht die Familie selbst am Herd
+          &mdash; persönlich, warm, ohne aufgesetztes Marketing.
+        </p>
+        <p class="reveal reveal-delay-2 font-serif text-lg leading-[1.7] text-ink/80">
+          Unsere Speisekarte wechselt mit den Jahreszeiten. Frische Zutaten, traditionelle Rezepte und ein
+          Gläschen Ouzo zum Abschluss &mdash; bei uns sagt man „Ihr" statt „Sie", denn wer einmal bei uns zu
+          Gast war, ist Familie.
+        </p>
+      </div>
+
+      <div class="max-w-6xl mx-auto px-6 mt-20 space-y-20">
+        <!-- Die Küche -->
+        <div class="reveal grid sm:grid-cols-[160px_1fr] gap-8 items-start">
+          <div class="rounded-2xl overflow-hidden w-28 h-28 sm:w-32 sm:h-32 shadow-warm card-lift">
+            <img src="brand_assets/IMG_5726.jpg" alt="Gericht der Taverna Alexandrion" class="w-full h-full object-cover" style="object-position: center center;">
+          </div>
+          <div>
+            <h3 class="font-display italic text-2xl sm:text-3xl text-olive-dark mb-3">Die Küche</h3>
+            <p class="font-serif leading-[1.7] text-ink/75 max-w-xl">
+              Alexandrion verbindet altbewährte Rezepte mit der Frische der Saison &mdash; Fisch, zartes
+              Fleisch, sonnengereiftes Gemüse und Kräuter aus der Region. Unsere Karte wechselt mit den
+              Jahreszeiten, denn echte Handwerkskunst steht niemals still.
+            </p>
+          </div>
+        </div>
+        <!-- Der Chef -->
+        <div class="reveal grid sm:grid-cols-[1fr_160px] gap-8 items-start sm:ml-12">
+          <div class="sm:order-1 sm:text-right">
+            <h3 class="font-display italic text-2xl sm:text-3xl text-olive-dark mb-3">Das Team</h3>
+            <p class="font-serif leading-[1.7] text-ink/75 max-w-xl sm:ml-auto">
+              Familienküche auf hohem Niveau &mdash; seit 1998 am Herd: Aristidis Tassis. Ehrliche Aromen,
+              mutige Kombinationen und echtes Handwerk. Kein Wunder, dass man uns zu den beliebtesten
+              griechischen Tavernen am Main zählt.
+            </p>
+          </div>
+          <div class="sm:order-2 rounded-2xl overflow-hidden w-28 h-28 sm:w-32 sm:h-32 shadow-warm sm:ml-auto card-lift">
+            <img src="brand_assets/IMG_5721.jpg" alt="Das Team der Taverna Alexandrion" class="w-full h-full object-cover" style="object-position: center 20%;">
+          </div>
+        </div>
+        <!-- Die Atmosphäre -->
+        <div class="reveal grid sm:grid-cols-[160px_1fr] gap-8 items-start">
+          <div class="rounded-2xl overflow-hidden w-28 h-28 sm:w-32 sm:h-32 shadow-warm card-lift">
+            <img src="brand_assets/IMG_5735.jpg" alt="Gastraum der Taverna Alexandrion" class="w-full h-full object-cover" style="object-position: center center;">
+          </div>
+          <div>
+            <h3 class="font-display italic text-2xl sm:text-3xl text-olive-dark mb-3">Die Atmosphäre</h3>
+            <p class="font-serif leading-[1.7] text-ink/75 max-w-xl">
+              Tritt ein, und der Alltag bleibt vor der Tür. Ein Ort, an dem warme Gastfreundschaft auf
+              mediterranes Flair trifft. Ein lichtdurchfluteter Gastraum, erfüllt vom Duft frischer Kräuter.
+              Alexandrion ist Athens Tavernen-Charme mitten in Mühlheim. Seid ihr bereit, Griechenland zu
+              schmecken?
+            </p>
+          </div>
+        </div>
+        <!-- Das Erlebnis -->
+        <div class="reveal grid sm:grid-cols-[1fr_160px] gap-8 items-start sm:ml-12">
+          <div class="sm:order-1 sm:text-right">
+            <h3 class="font-display italic text-2xl sm:text-3xl text-olive-dark mb-3">Das Erlebnis</h3>
+            <p class="font-serif leading-[1.7] text-ink/75 max-w-xl sm:ml-auto">
+              Bei Alexandrion ist Essen mehr als eine Mahlzeit &mdash; es ist ein Fest für die Sinne. Kleine
+              Teller, große Aromen, ausgewählte Weine und herzliche Gastfreundschaft verschmelzen zu einem
+              Abend, an dem Teilen zur schönsten Geste wird.
+            </p>
+          </div>
+          <div class="sm:order-2 rounded-2xl overflow-hidden w-28 h-28 sm:w-32 sm:h-32 shadow-warm sm:ml-auto card-lift">
+            <img src="brand_assets/IMG_5740.jpg" alt="Dessert in der Taverna Alexandrion" class="w-full h-full object-cover" style="object-position: center center;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SPEISEKARTE ============ -->
+    <section id="speisekarte" class="relative">
+      <div class="bg-olive-grad grain py-20 lg:py-28 rounded-t-[60px] sm:rounded-t-[100px]">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+          <h2 class="reveal font-display italic text-3xl sm:text-4xl text-parchment tracking-[0.15em] lowercase mb-6">die speisekarte</h2>
+          <p class="reveal reveal-delay-1 font-serif text-lg leading-[1.7] text-parchment/85 mb-10">
+            Bei uns gibt es nichts Gewöhnliches. Wir nehmen griechische Klassiker und geben ihnen unseren
+            eigenen Dreh &mdash; jeder Bissen schmeckt wie ein Sonntagsessen, nur etwas mutiger.
+          </p>
+          <div class="reveal reveal-delay-2 flex flex-wrap justify-center gap-4 mb-10">
+            <a href="speisekarte.html" class="pill-gold font-sans text-xs tracking-[0.2em] uppercase px-8 py-4 rounded-full inline-flex items-center gap-2 shadow-warm">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6"/></svg>
+              Speisekarte ansehen
+            </a>
+          </div>
+          <div class="flex items-start justify-center gap-2 text-parchment/70 font-sans text-sm max-w-xl mx-auto">
+            <span class="mt-0.5">&#9432;</span>
+            <p>Unsere Speisekarte wechselt alle zwei Monate &mdash; mit neuen Gerichten aus den besten saisonalen Zutaten.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GALERIE ============ -->
+    <section id="galerie" class="relative py-24 lg:py-28 bg-parchment-grad grain">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="reveal font-display italic text-3xl sm:text-4xl text-olive-dark text-center tracking-[0.15em] lowercase mb-8">alexandrion galerie</h2>
+        <div class="reveal reveal-delay-1 flex justify-center gap-3 mb-10 font-sans text-xs tracking-[0.1em] uppercase" id="galleryFilters">
+          <button data-filter="all" class="filter-pill active px-5 py-2 rounded-full">Alle</button>
+          <button data-filter="innenraum" class="filter-pill px-5 py-2 rounded-full">Räumlichkeiten</button>
+          <button data-filter="speisen" class="filter-pill px-5 py-2 rounded-full">Speisen</button>
+        </div>
+
+        <!-- 3-Bild-Karussell -->
+        <div class="reveal reveal-delay-2 relative px-12 sm:px-14">
+          <button id="gallery-prev" aria-label="Vorheriges Bild"
+            class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-parchment shadow-warm text-olive"
+            style="transition: color 0.2s ease, opacity 0.2s ease;">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+
+          <div id="galleryViewport" class="overflow-hidden">
+            <div id="galleryTrack" class="flex" style="gap:12px; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);"></div>
+          </div>
+
+          <button id="gallery-next" aria-label="Nächstes Bild"
+            class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-parchment shadow-warm text-olive"
+            style="transition: color 0.2s ease, opacity 0.2s ease;">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+
+        <p class="text-center font-sans text-xs text-ink/45 tracking-[0.1em] mt-5">Bild anklicken zum Vergrößern</p>
+      </div>
+    </section>
+
+    <!-- ============ REZENSIONEN ============ -->
+    <section class="relative py-20 lg:py-24 bg-parchment-grad grain">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-14">
+          <h2 class="reveal font-display italic text-3xl sm:text-4xl text-olive-dark tracking-[0.15em] lowercase mb-4">was unsere Gäste sagen</h2>
+          <p class="reveal reveal-delay-1 font-serif text-lg leading-[1.7] text-ink/75 max-w-xl mx-auto">
+            Echte Stimmen von echten Gästen &mdash; wir sind dankbar für jeden Besuch.
+          </p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          <div class="reveal bg-white/45 border border-olive/10 shadow-warm rounded-sm p-7 flex flex-col gap-4">
+            <div class="flex gap-0.5 text-xl" style="color:#B8861A;">★★★★★</div>
+            <p class="font-serif leading-[1.75] text-ink/80 text-[1rem] flex-1">
+              „Ich war im Alexandrion und total begeistert! Als Vegetarierin habe ich mich besonders gefreut, dass es eine richtig tolle Auswahl für mich gab. Ein absolutes Highlight waren die Paprika Florini von der Tageskarte &mdash; ich habe wirklich noch nie etwas so Leckeres gegessen."
+            </p>
+            <p class="font-sans text-sm text-olive-dark font-medium">— Lorena Ross Lopéz</p>
+          </div>
+          <div class="reveal reveal-delay-1 bg-white/45 border border-olive/10 shadow-warm rounded-sm p-7 flex flex-col gap-4">
+            <div class="flex gap-0.5 text-xl" style="color:#B8861A;">★★★★★</div>
+            <p class="font-serif leading-[1.75] text-ink/80 text-[1rem] flex-1">
+              „Immer wieder ein Genuss! Man spürt sofort die Herzlichkeit der Familie Tassis und wie viel Leidenschaft und Liebe sie in ihr Restaurant stecken. Die Atmosphäre ist warm und einladend, und man fühlt sich vom ersten Moment an willkommen. Ich kann das Restaurant mit bestem Gewissen weiterempfehlen!"
+            </p>
+            <p class="font-sans text-sm text-olive-dark font-medium">— Pavlos Maios</p>
+          </div>
+          <div class="reveal reveal-delay-2 sm:col-span-2 lg:col-span-1 bg-white/45 border border-olive/10 shadow-warm rounded-sm p-7 flex flex-col gap-4">
+            <div class="flex gap-0.5 text-xl" style="color:#B8861A;">★★★★★</div>
+            <p class="font-serif leading-[1.75] text-ink/80 text-[1rem] flex-1">
+              „Wir waren heute das erste Mal hier und hatten neben einer gemischten Vorspeisenplatte noch Sardellen und Moussaka gegessen. Insbesondere die Vorspeisen waren sehr lecker und optisch schön präsentiert! Super freundlicher Service, gemütliche Atmosphäre und richtig gutes Essen. Ich komme definitiv wieder!"
+            </p>
+            <p class="font-sans text-sm text-olive-dark font-medium">— Torsten Hallstein</p>
+          </div>
+        </div>
+        <div class="reveal text-center">
+          <a href="https://maps.app.goo.gl/Nc6xRajPZFLciWia6?g_st=ic" target="_blank" rel="noopener" class="pill-outline on-parchment font-sans text-xs tracking-[0.2em] uppercase px-7 py-3.5 rounded-full inline-flex items-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Alle Bewertungen auf Google ansehen
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FOLGT ALEXANDRION ============ -->
+    <section class="relative py-16 lg:py-20 bg-parchment-grad grain">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        <h2 class="reveal font-display italic text-2xl sm:text-3xl text-olive-dark tracking-[0.1em] lowercase mb-4">Folgt Alexandrion</h2>
+        <p class="reveal reveal-delay-1 font-serif leading-[1.7] text-ink/75 mb-8 max-w-xl mx-auto">
+          Exklusive Einblicke hinter die Kulissen, Gerichte zum Niederknien und Neuigkeiten aus erster
+          Hand. Folgt uns auf Instagram und Facebook und schmeckt die griechisch-mainländische Verbindung.
+        </p>
+        <div class="reveal reveal-delay-2 flex flex-wrap justify-center gap-4">
+          <a href="https://www.instagram.com/restaurantalexandrion?igsh=Y3FqandvaXl5ZjA5" target="_blank" rel="noopener" class="pill-solid font-sans text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-full inline-flex items-center gap-2 shadow-warm">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+            Instagram
+          </a>
+          <a href="https://www.facebook.com/share/1DJb4d4WGr/?mibextid=wwXIfr" target="_blank" rel="noopener" class="pill-solid font-sans text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-full inline-flex items-center gap-2 shadow-warm">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 8h2V5h-2c-2.2 0-4 1.8-4 4v2H9v3h2v7h3v-7h2.5l.5-3H14V9c0-.6.4-1 1-1Z"/></svg>
+            Facebook
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ AMENITIES ============ -->
+    <section class="relative bg-parchment-grad grain">
+      <div class="max-w-6xl mx-auto px-6 py-16 lg:py-20 grid sm:grid-cols-2 gap-x-12 gap-y-12">
+        <div class="reveal flex gap-5">
+          <svg class="w-9 h-9 text-olive shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2 8 8h8L12 2Z"/><path d="M5 9 1 16h8L5 9Z"/><path d="M19 9l-4 7h8l-4-7Z"/><path d="M12 11v11"/></svg>
+          <div>
+            <h3 class="font-display italic text-xl text-olive-dark mb-1.5">Garten / Außenbereich</h3>
+            <p class="font-serif text-sm leading-relaxed text-ink/70">Genießt unseren lauschigen Innenhof &mdash; ob romantisches Dinner oder große Feier, hier wird jeder Anlass besonders.</p>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-1 flex gap-5">
+          <svg class="w-9 h-9 text-olive shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M9 16V8h3.5a2.5 2.5 0 1 1 0 5H9"/></svg>
+          <div>
+            <h3 class="font-display italic text-xl text-olive-dark mb-1.5">Parkplatz</h3>
+            <p class="font-serif text-sm leading-relaxed text-ink/70">Keine Sorgen, kein Stress &mdash; bei uns gibt's ausreichend Parkplätze direkt vor der Tür.</p>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-2 flex gap-5">
+          <svg class="w-9 h-9 text-olive shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/><path d="M14.5 14.5c2.6 0.4 4.5 2.4 4.5 5.5"/></svg>
+          <div>
+            <h3 class="font-display italic text-xl text-olive-dark mb-1.5">Events &amp; private Feiern</h3>
+            <p class="font-serif text-sm leading-relaxed text-ink/70">Klein oder groß, wir machen jede Feier unvergesslich &mdash; mit Menüs und Service nach euren Wünschen.</p>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-3 flex gap-5">
+          <svg class="w-9 h-9 text-olive shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3c4 2 6 5 6 9a6 6 0 1 1-12 0c0-4 2-7 6-9Z"/><path d="M12 12v9"/></svg>
+          <div>
+            <h3 class="font-display italic text-xl text-olive-dark mb-1.5">Vegane Optionen</h3>
+            <p class="font-serif text-sm leading-relaxed text-ink/70">Wer sagt, griechische Küche kann nicht pflanzlich sein? Unsere veganen Gerichte beweisen das Gegenteil.</p>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-4 flex gap-5">
+          <svg class="w-9 h-9 text-olive shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 4l16 16M9 4 7 9m4-5-1 6m4-6-1 8m4-8 2 12-7 4-7-4 1-7"/></svg>
+          <div>
+            <h3 class="font-display italic text-xl text-olive-dark mb-1.5">Glutenfrei auf Anfrage</h3>
+            <p class="font-serif text-sm leading-relaxed text-ink/70">Unverträglichkeit? Einfach Bescheid geben &mdash; wir servieren glutenfreie Gerichte mit vollem Geschmack.</p>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-5 flex gap-5">
+          <svg class="w-9 h-9 text-olive shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 9c5.5-5 14.5-5 20 0M5.5 13c4-3.5 9-3.5 13 0M9 17c2-1.7 4-1.7 6 0"/><circle cx="12" cy="20" r="1" fill="currentColor" stroke="none"/></svg>
+          <div>
+            <h3 class="font-display italic text-xl text-olive-dark mb-1.5">Kostenloses WLAN</h3>
+            <p class="font-serif text-sm leading-relaxed text-ink/70">Genießt jeden Bissen, teilt jeden Moment &mdash; mit unserem schnellen, kostenlosen WLAN.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer id="kontakt" class="bg-olive-grad grain rounded-t-[60px] sm:rounded-t-[100px]">
+    <div class="max-w-6xl mx-auto px-6 lg:px-10 pt-16 sm:pt-20 pb-12">
+      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-10 mb-14">
+        <img src="brand_assets/upscalemedia-transformed-removebg-preview.png" alt="Alexandrion Logo" class="h-28 w-auto" style="filter: brightness(0) invert(1);">
+        <div class="sm:text-right">
+          <p class="font-display italic text-3xl text-parchment tracking-[0.15em] lowercase">alexandrion</p>
+          <p class="font-serif text-parchment/70 mt-1">Griechische Wurzeln, mediterranes Herz.</p>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-10 font-sans text-sm text-parchment/90 mb-14">
+        <div class="space-y-2">
+          <p>Lämmerspieler Weg 16, 63165 Mühlheim am Main</p>
+          <p>Telefon: <a href="tel:+4961087695" class="hover:text-gold">06108 / 76795</a></p>
+          <p>E-Mail: <a href="mailto:info@restaurant-alexandrion.com" class="hover:text-gold">info@restaurant-alexandrion.com</a></p>
+        </div>
+        <div class="space-y-2 sm:text-right">
+          <p>Di&ndash;Sa: 17:00&ndash;23:00</p>
+          <p>So: 11:30&ndash;15:00 &amp; 17:00&ndash;22:00</p>
+          <p class="text-parchment/60 text-xs">K&uuml;che bis 14:30 &amp; 21:00 Uhr</p>
+          <p class="text-parchment/60">Montag Ruhetag</p>
+        </div>
+      </div>
+
+      <div class="flex justify-center gap-6 mb-10">
+        <a href="https://www.instagram.com/restaurantalexandrion?igsh=Y3FqandvaXl5ZjA5" target="_blank" rel="noopener" aria-label="Instagram" class="text-parchment/80 hover:text-gold transition-colors duration-200">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.facebook.com/share/1DJb4d4WGr/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook" class="text-parchment/80 hover:text-gold transition-colors duration-200">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 8h2V5h-2c-2.2 0-4 1.8-4 4v2H9v3h2v7h3v-7h2.5l.5-3H14V9c0-.6.4-1 1-1Z"/></svg>
+        </a>
+      </div>
+
+      <div class="flex justify-center mb-10">
+        <a href="https://maps.app.goo.gl/Nc6xRajPZFLciWia6?g_st=ic" target="_blank" rel="noopener" class="font-sans text-xs text-parchment/70 hover:text-gold transition-colors duration-200 text-center">
+          <p>Google &middot; ★★★★★</p>
+          <p class="text-parchment/50">Bewertungen ansehen</p>
+        </a>
+      </div>
+
+      <div class="flex justify-center gap-6 font-sans text-xs text-parchment/60 mb-8">
+        <a href="#" class="hover:text-gold">Nutzungsbedingungen</a>
+        <a href="#" class="hover:text-gold">Datenschutz</a>
+      </div>
+
+      <p class="font-sans text-[11px] tracking-[0.2em] uppercase text-parchment/50 text-center">
+        &copy; 2026 Taverna Alexandrion &middot; Mit Liebe seit 1998
+      </p>
+    </div>
+  </footer>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div id="lightbox" class="fixed inset-0 z-[200] flex items-center justify-center p-4 hidden" style="background: rgba(8,11,8,0.94); backdrop-filter: blur(6px);">
+    <button id="lb-close" class="absolute top-5 right-5 text-parchment/70 hover:text-parchment" style="transition: color 0.2s ease;">
+      <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <button id="lb-prev" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 text-parchment/70 hover:text-parchment" style="transition: color 0.2s ease;">
+      <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <img id="lb-img" src="" alt="" class="max-h-[85vh] max-w-[85vw] object-contain" style="box-shadow: 0 8px 48px rgba(0,0,0,0.6);">
+    <button id="lb-next" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 text-parchment/70 hover:text-parchment" style="transition: color 0.2s ease;">
+      <svg class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <p id="lb-counter" class="absolute bottom-5 left-1/2 -translate-x-1/2 font-sans text-xs text-parchment/40 tracking-[0.25em]"></p>
+  </div>
+
+  <script>
+    // === GALLERY CAROUSEL ===
+    const GALLERY_IMAGES = [
+      { src: 'brand_assets/IMG_5726.jpg', alt: 'Burrata mit Tomaten und Rucola', cat: 'speisen' },
+      { src: 'brand_assets/IMG_5735.jpg', alt: 'Gastraum mit Alexandrion Schild', cat: 'innenraum' },
+      { src: 'brand_assets/IMG_5724.jpg', alt: 'Gegrillter Halloumi', cat: 'speisen' },
+      { src: 'brand_assets/IMG_5731.jpg', alt: 'Bankett-Aufbau mit Gartenfenster', cat: 'innenraum' },
+      { src: 'brand_assets/IMG_5734.jpg', alt: 'Lachs Carpaccio mit Zucchini-Krapfen', cat: 'speisen' },
+      { src: 'brand_assets/IMG_5727.jpg', alt: 'Festlich gedeckter Tisch mit Tulpen', cat: 'innenraum' },
+      { src: 'brand_assets/IMG_5733.jpg', alt: 'Artischockenherzen in Zitronenbutter', cat: 'speisen' },
+      { src: 'brand_assets/IMG_5728.jpg', alt: 'Privater Speisesaal mit Kunst', cat: 'innenraum' },
+      { src: 'brand_assets/IMG_5737.jpg', alt: 'Gemischte Vorspeisenplatte', cat: 'speisen' },
+      { src: 'brand_assets/IMG_5722.jpg', alt: 'Bar mit Spirituosen', cat: 'innenraum' },
+      { src: 'brand_assets/IMG_5738.jpg', alt: 'Dolmades mit Tzatziki', cat: 'speisen' },
+      { src: 'brand_assets/IMG_5740.jpg', alt: 'Dessert Amygdalopita', cat: 'speisen' },
+    ];
+    const GAL_VISIBLE = 3;
+    const GAL_GAP = 12;
+    let galFilter = 'all';
+    let galIdx = 0;
+    let galFiltered = [];
+
+    const galTrack = document.getElementById('galleryTrack');
+    const galViewport = document.getElementById('galleryViewport');
+    const galPrev = document.getElementById('gallery-prev');
+    const galNext = document.getElementById('gallery-next');
+
+    function galItemW() {
+      return (galViewport.offsetWidth - GAL_GAP * (GAL_VISIBLE - 1)) / GAL_VISIBLE;
+    }
+
+    function buildGallery() {
+      galFiltered = galFilter === 'all' ? GALLERY_IMAGES : GALLERY_IMAGES.filter(x => x.cat === galFilter);
+      galIdx = 0;
+      galTrack.innerHTML = '';
+      const w = galItemW();
+      galFiltered.forEach((item, i) => {
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.alt = item.alt;
+        img.className = 'gallery-img rounded-sm shadow-warm';
+        img.style.cssText = `width:${w}px; height:${w}px; flex-shrink:0; object-fit:cover;`;
+        img.addEventListener('click', () => lbOpen(i));
+        galTrack.appendChild(img);
+      });
+      galPosition();
+      galNavUpdate();
+    }
+
+    function galPosition() {
+      const w = galItemW();
+      galTrack.style.transform = `translateX(-${galIdx * (w + GAL_GAP)}px)`;
+    }
+
+    function galNavUpdate() {
+      const max = Math.max(0, galFiltered.length - GAL_VISIBLE);
+      galPrev.style.opacity = galIdx <= 0 ? '0.3' : '1';
+      galNext.style.opacity = galIdx >= max ? '0.3' : '1';
+      galPrev.disabled = galIdx <= 0;
+      galNext.disabled = galIdx >= max;
+    }
+
+    function galMove(d) {
+      const max = Math.max(0, galFiltered.length - GAL_VISIBLE);
+      galIdx = Math.max(0, Math.min(galIdx + d, max));
+      galPosition();
+      galNavUpdate();
+    }
+
+    galPrev.addEventListener('click', () => galMove(-1));
+    galNext.addEventListener('click', () => galMove(1));
+
+    document.querySelectorAll('#galleryFilters button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#galleryFilters button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        galFilter = btn.dataset.filter;
+        buildGallery();
+      });
+    });
+
+    let galResizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(galResizeTimer);
+      galResizeTimer = setTimeout(buildGallery, 200);
+    });
+
+    // === LIGHTBOX ===
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const lbCounter = document.getElementById('lb-counter');
+    let lbIdx = 0;
+
+    function lbShow(idx) {
+      lbIdx = ((idx % galFiltered.length) + galFiltered.length) % galFiltered.length;
+      lbImg.src = galFiltered[lbIdx].src;
+      lbImg.alt = galFiltered[lbIdx].alt;
+      lbCounter.textContent = (lbIdx + 1) + ' / ' + galFiltered.length;
+    }
+
+    function lbOpen(idx) {
+      lbShow(idx);
+      lb.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function lbClose() {
+      lb.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('lb-close').addEventListener('click', lbClose);
+    document.getElementById('lb-prev').addEventListener('click', () => lbShow(lbIdx - 1));
+    document.getElementById('lb-next').addEventListener('click', () => lbShow(lbIdx + 1));
+    lb.addEventListener('click', e => { if (e.target === lb) lbClose(); });
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('hidden')) {
+        if (e.key === 'Escape') lbClose();
+        if (e.key === 'ArrowLeft') lbShow(lbIdx - 1);
+        if (e.key === 'ArrowRight') lbShow(lbIdx + 1);
+      }
+    });
+
+    // Initial build
+    buildGallery();
+
+    // === SCROLL REVEAL ===
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+
+</body>
+</html>
